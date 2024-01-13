@@ -1,0 +1,38 @@
+CREATE DATABASE CarRentalDB;
+USE CarRentalDB;
+
+CREATE TABLE Staff
+(
+    StaffID VARCHAR(20) PRIMARY KEY,
+    `Password` VARCHAR(20) NOT NULL,
+    `Name` VARCHAR(100) NOT NULL
+);
+
+CREATE TABLE Car
+(
+    CarID INT PRIMARY KEY AUTO_INCREMENT,
+    PlateNo VARCHAR(20) NOT NULL UNIQUE,
+    Model VARCHAR(20) NOT NULL,
+    Price DOUBLE NOT NULL
+);
+
+CREATE TABLE Customer
+(
+    CustomerID INT PRIMARY KEY AUTO_INCREMENT,
+    `Name` VARCHAR(100) NOT NULL,
+    LicenceNo VARCHAR(20) NOT NULL UNIQUE,
+    PhoneNo VARCHAR(20) NOT NULL
+);
+
+CREATE TABLE Rental
+(
+    CarID INT NOT NULL,
+    CustomerID INT NOT NULL,
+    `Start` DATE NOT NULL,
+    Duration INT NOT NULL,
+
+    CONSTRAINT Rental_Car_FK FOREIGN KEY (CarID) REFERENCES Car (CarID),
+    CONSTRAINT Rental_Customer_FK FOREIGN KEY (CustomerID) REFERENCES Customer (CustomerID)
+);
+
+INSERT INTO Staff VALUES ('ADMIN', '123', 'System Administrator');
